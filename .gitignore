@@ -2,9 +2,13 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.DS_Store
 # C extensions
 *.so
+
+report/.texpadtmp/
+ve3/
+ve2/
 
 # Distribution / packaging
 .Python

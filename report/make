@@ -1,0 +1,1 @@
+latex example; bibtex example; latex example ; latex example ; dvips -o example.ps -t letterSize example.dvi ; ps2pdf example.ps example.pdf 
