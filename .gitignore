@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+report/recommendation-rl.ps
+report/recommendation-rl.dvi
 report/.texpadtmp/
 ve3/
 ve2/
