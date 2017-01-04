@@ -69,7 +69,7 @@ Movie 3  & 0 &   0 & 0 & ...\\ \hline
 \end{tabular}
 }
 \vskip 0.25cm
-\caption{Movise feature space}
+\caption{Movies feature space}
 \end{table}
 
 
@@ -129,9 +129,26 @@ The combined utility or more explicitly the expected rating for a movie and a us
 	$ \ U = \ U_{c} *  U_{n} = (\theta^{T} * x) * (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
+The last task of the recommender is then to propose the movie with the highest expected rating to the user and update the user preferences $\theta$ according to the difference in rating received and predicted.
+
 \subsubsection{Collaborative filtering}
 
-\todo{expliquer l'adptattion pour faire du collaborative}
+The collaborative filtering heuristic try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
+
+The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\theta$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
+
+\begin{center}
+	$ \ U_{f} = u $ 
+\end{center}
+
+Note that others users rating are weighted by the average means they give to movie to avoid biais.
+
+The novelty if defined similarly as above, so the expected rating is :
+
+\begin{center}
+	$ \ U = \ U_{f} *  U_{n} = u * (1 - e^{\frac{t}{s}}) $ 
+\end{center}
+
 
 
 \subsection{Bandit strategies}
