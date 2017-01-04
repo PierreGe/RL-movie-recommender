@@ -2,6 +2,8 @@
 \usepackage{natbib,alifexi}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{float}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 
 
@@ -35,7 +37,7 @@ The problem of movie recommendation is modelised as a multi-armed bandit [\cite{
 \begin{itemize}
 	\item The learning is done by incorporating user feedback (i.e. ratings of movies) into recommendations allowing us to fit diversity in users preferences,
 	\item The model takes into account novelty of movies and repetitions thus not recommending movies watched recently,
-	\item The learngin balances exploration and exploitation thus mitigating the difficulty of cold-start,
+	\item The learning balances exploration and exploitation thus mitigating the difficulty of cold-start,
 	\item The model can take into account both a content based approaches and a collaborative filtering approaches.
 \end{itemize}
 
@@ -80,8 +82,17 @@ The principal components analysis is a machine learning procedure that apply an 
 
 For our dataset we kept, the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=2.1in]{img/pca.png}
+\caption{Example of a 2 dimension PCA. A reduction to one dimension would be to keep only PC1.}
+\label{pca}
+\end{center}
+\end{figure}
 
-\subsection{Multi armed bandit modelisation}
+\subsection{Multi armed bandit modelling}
+
+The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine)
 
 \todo{comment on a modelise le probelem en bandit}
 
