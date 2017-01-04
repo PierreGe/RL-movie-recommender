@@ -17,26 +17,51 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 \maketitle
 
 \begin{abstract}
-  Blabla.
+  \todo{un bon abstract}
+  The purpose of this research is to study a reinforcement learning approaches to building a cold-start recommender system. The reinforcement learning task formulate the problem of recommendation as learning user preferences while doing an exploration-exploitation trade-off thus allowing us to provide to the user novelty content. This paper explore a content based learning as well as collaborative filtering learning, both yielding viable recommendation results.
 \end{abstract}
 
 \section{Introduction}
 
-blabla
+
+People sometimes have to settle on decisions without sufficient individual experience of the choices. In regular daily existence, we depend on  recommendations from other individuals either by listening in on conversations, by suggestion of movies, tv show, holiday destination, etc. Recommender systems help and enlarge this normal social process. 
+
+In a standard recommender system, individuals usually give behaviour information as data sources, which the system then interpret to provide recommendation to the beneficiaries. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such Netflix \cite{netflix-article-recommender} or YouTube \footnote{http://www.youtube.com} allowing them to make their content more attractive in order to increase viewing and in order to optimise its monetisation. It allows to infer customer's center of interest and also allows to detect, if a behaviour is a general trend between customers, potential improvements in content to better meet the expectations of the public.
+
+\todo{brief state of the art}
+
+
+\todo{contenu du papier, approche q learning et pourquoi}
 
 \section{Methods}
 
-blabla et exemple d'image
+\subsection{Data mining}
+
+The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is twofolds, the first part is a movie catalog containing relevant information about each movies such as the genre, keywords describing the content, the year, the rating by others users and votes count. That part is publicly available from IMDb FTP in a homemade format. The second part of data is RSS flux of movies watched and rated by IMDb users containing the title of the movie along the rating and the time it was watched.
+
+\subsection{Features extraction and selection}
+
+\todo{ les fetaures selectionne et encodage onehot et pourquoi}
 
 
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=2.1in,angle=-90]{img/fig1.eps}
-\caption{``Energies'' (inferiorities) of strings in a first-order
-  phase transition with latent heat $\Delta\epsilon$.}
-\label{fig1}
-\end{center}
-\end{figure}
+\subsection{Dimension reduction}
+
+\todo{ comment et pouquoi on a fait une reduction de dimension}
+In order to 
+
+
+\subsection{Multi armed bandit modelisation}
+
+\todo{comment on a modelise le probelem en bandit}
+
+\subsection{Selections algorithms}
+
+\todo{description des approches utilisés}
+
+
+\subsection{Content based or collaborative filtering}
+
+\todo{expliquer ces deux approches}
 
 
 \section{Results}
@@ -55,3 +80,13 @@ blabla
 
 
 \end{document}
+
+
+%\begin{figure}[t]
+%\begin{center}
+%\includegraphics[width=2.1in,angle=-90]{img/fig1.eps}
+%\caption{``Energies'' (inferiorities) of strings in a first-order
+%  phase transition with latent heat $\Delta\epsilon$.}
+%\label{fig1}
+%\end{center}
+%\end{figure}
