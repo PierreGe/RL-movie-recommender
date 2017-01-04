@@ -96,13 +96,38 @@ The multi-armed bandit is a intensively studied reinforcement learning dilemma. 
 
 The movie recommendation problem can be seen as a bandit problem where each arm is a movie and a user can pull it (watch it). The reward or loss or can be seen as the difference between the expected rating of a movie for a suer and the the true rating given as a feedback by the user. As the number of arm is gigantic and each arm are not even played once, an heuristic is used to help the system into choosing an arm. The heuristic can be content based or a collaborative filtering.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=3.4in]{img/schema.png}
+\caption{Seeing a movie recommender as a multi-armed bandit problem}
+\label{schema}
+\end{center}
+\end{figure}
+
 \subsubsection{Content based}
 
-The content based heuristic try to find a movie that is close to the learned user preferences.
+The content based heuristic try to find a movie that is close to the learned user preferences $\theta$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
+The movie genre and movie year can be considered as a onehot encoded vector $x$.
+Without considering other factor, the utility of a user for a movie can be represented as the following.
 
+\begin{center}
+	$ \ U_{c} = \theta^{T} * x$ 
+\end{center}
 
-\todo{expliquer comme dans le paier}
+Distinctive users have different preferences $\theta$. Also, we do the hypothesis of a stationary true value for $\theta$, meaning that while, we learn the user preference, its preferences stay the same.
+
+The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously for movie an higher value of $s$ is needed compared to an $s$ that would be used for music. The utility for a user in term of novelty can be defined as follows.
+
+\begin{center}
+	$ \ U_{n} = 1 - e^{\frac{t}{s}} $ 
+\end{center}
+
+The combined utility or more explicitly the expected rating for a movie and a user is defined as follows.
+
+\begin{center}
+	$ \ U = \ U_{c} *  U_{n} = (\theta^{T} * x) * (1 - e^{\frac{t}{s}}) $ 
+\end{center}
 
 \subsubsection{Collaborative filtering}
 
@@ -114,6 +139,7 @@ The content based heuristic try to find a movie that is close to the learned use
 \todo{faire une subsubsection avec chaque dapproches utilisés, greedy, linucb, greedyucb, bayes}
 
 
+\subsection{Simulation}
 
 \section{Results}
 
