@@ -94,7 +94,13 @@ For our dataset we kept, the 20-first principal components out of about 50, keep
 
 The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and its goal is to choose wisely which arm to play in order to maximise the total payoff.
 
+The movie recommendation problem can be seen as a bandit problem where each arm is a movie and a user can pull it (watch it). The reward or loss or can be seen as the difference between the expected rating of a movie for a suer and the the true rating given as a feedback by the user. As the number of arm is gigantic and each arm are not even played once, an heuristic is used to help the system into choosing an arm. The heuristic can be content based or a collaborative filtering.
+
 \subsubsection{Content based}
+
+The content based heuristic try to find a movie that is close to the learned user preferences.
+
+
 
 \todo{expliquer comme dans le paier}
 
