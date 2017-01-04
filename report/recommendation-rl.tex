@@ -76,7 +76,9 @@ Movie 3  & 0 &   0 & 0 & ...\\ \hline
 The resulting feature space of the feature extraction process is quite sizable thus making the recommendation quite computational intensive.
 In order to deal with that problem, the feature space size has been reduced using Principal Components Analysis (PCA) [\cite{principalcompanalysis}].
 
-\todo{how does it work}  
+The principal components analysis is a machine learning procedure that apply an  orthogonal transformation to the dataset in order to obtains a new set of values which have the property of a minimised covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components.
+
+For our dataset we kept, the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
 
 
 \subsection{Multi armed bandit modelisation}
