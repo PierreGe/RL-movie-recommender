@@ -58,7 +58,7 @@ The first challenge was to extract the features from the IMDb homemade format an
 
 In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
 
-Then for each movie and to also keep the problem simple and focus on the learning matter, we selected genre and year as features for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding have been apply to them resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
+To keep the features vector simple, we selected only the genre and year for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding has been applied resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
 
 \begin{table}[h]
 \center{
@@ -77,17 +77,17 @@ Movie 3  & 0 &   0 & 0 & ...\\ \hline
 
 \subsection{Dimension reduction}
 
-The resulting feature space of the feature extraction process is quite sizable thus making the recommendation quite computational intensive.
+The feature space resulting from the feature extraction process is quite large, making the recommendation computational intensive.
 In order to deal with that problem, the feature space size has been reduced using Principal Components Analysis (PCA) [\cite{principalcompanalysis}].
 
-The principal components analysis is a machine learning procedure that apply an  orthogonal transformation to the dataset in order to obtains a new set of values which have the property of a minimised covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components.
+The principal components analysis is a machine learning procedure that apply an orthogonal transformation to the dataset in order to obtain a new set of values that minimises the covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components thus removing first the components with lesser variance.
 
-For our dataset we kept, the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
+For our dataset we kept the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=2.1in]{img/pca.png}
-\caption{Example of a 2 dimension PCA. A reduction to one dimension would be to keep only PC1.}
+\caption{Example of a 2 dimension PCA. A reduction to one dimension would keep only PC1.}
 \label{pca}
 \end{center}
 \end{figure}
