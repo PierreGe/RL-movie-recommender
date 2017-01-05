@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{float}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 
@@ -153,17 +154,25 @@ The novelty if defined similarly as above, so the expected rating is :
 
 \subsection{Bandit strategies}
 
+Many strategy to find an approximate solution have been developed over the years. A review of them is explain by \cite{kuleshov2014algorithms}.
+
 \subsubsection{Random}
 
-\todo{Random}
+The random strategy is not a real strategy per se. It is a strategy where the player will only do exploration. It is mostly used as a basis to compare the effectiveness in term of reward or regret of an other algorithm.
 
 \subsubsection{Greedy-epsilon}
 
-\todo{Greedy-epsilon}
+The $\epsilon-greedy$ algorithm is widely used because it is fairly simple. For each round of the simulation, the algorithm selects the arm (movie) with the highest expected value based on the context vector with a probability of $1-\epsilon$ and selects a random arm with a probability $\epsilon$.
 
 \subsubsection{Greedy time dependent}
 
-\todo{Greedy time dependent}
+The greedy time dependent is a variation of the previously mentioned greedy where $\epsilon$ variated over time in order to maximise the exploration at first and reduce it in order to increase exploitation over time.
+
+\begin{center}
+	$\epsilon = \frac{1}{\sqrt{t+1}}$
+\end{center}
+
+However, the effectiveness of variating $\epsilon$ over time is disputed by \cite{vermorel2005multi} whose did not find any practical advantage to using these method. As a result, we will test both approaches.
 
 \subsubsection{GreedyUCB}
 
@@ -194,7 +203,7 @@ The novelty if defined similarly as above, so the expected rating is :
 
 \todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
 
-\todo{which strategy to use and which not to use ( including why bayes-ucb is not viable (way too much time an requires a user study to bootsrap)}
+\todo{which strategy to use and which not to use ( including why bayes-ucb is not viable (way too much time an requires a user study to bootstrap)}
 
 \todo{content based vs collaborative, is collaborative viable}
 
