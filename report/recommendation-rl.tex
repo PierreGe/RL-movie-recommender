@@ -43,6 +43,10 @@ The problem of movie recommandation is modeled as a contextual multi-armed bandi
 	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
 
+The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and her goal is to choose wisely which arm to play in order to maximise the total payoff.
+
+The contextual multi-armed bandit is a generalization of the multi-armed bandit where the reward obtained from each arm depends also on a \textit{context}. The context contains information about the arm and the player.
+
 
 In the following sections, we will first introduce the methods used. Then we will review the results we obtained before discussing them.
 
@@ -92,23 +96,23 @@ For our dataset we kept the 20-first principal components out of about 50, keepi
 \end{center}
 \end{figure}
 
-\subsection{Multi armed bandit modelling}
+\subsection{Contextual multi-armed bandit modelling}
 
-The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and its goal is to choose wisely which arm to play in order to maximise the total payoff.
+The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommanded to watch it). The context for each arm (movie) is a features vector containing the user features and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user features are updated depending on the movie features and the rating.
 
-The movie recommendation problem can be seen as a bandit problem where each arm is a movie and a user can pull it (watch it). The reward or loss or can be seen as the difference between the expected rating of a movie for a suer and the the true rating given as a feedback by the user. As the number of arm is gigantic and each arm are not even played once, an heuristic is used to help the system into choosing an arm. The heuristic can be content based or a collaborative filtering.
+This raises one concern : as the number of movies is gigantic, some movies might not be watched. To ensure that movies are not repeated too often, a \textit{novelty} parameter must be used.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=3.4in]{img/schema.png}
-\caption{Seeing a movie recommender as a multi-armed bandit problem}
+\caption{Seeing a movie recommender as a contextual multi-armed bandit problem}
 \label{schema}
 \end{center}
 \end{figure}
 
 \subsubsection{Content based}
 
-The content based heuristic try to find a movie that is close to the learned user preferences $\theta$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
+The content based model try to find a movie that is close to the learned user preferences $\theta$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
 The movie genre and movie year can be considered as a onehot encoded vector $x$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
@@ -135,7 +139,7 @@ The last task of the recommender is then to propose the movie with the highest e
 
 \subsubsection{Collaborative filtering}
 
-The collaborative filtering heuristic try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
+The collaborative filtering model try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
 
 The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\theta$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
 
