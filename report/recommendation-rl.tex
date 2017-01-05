@@ -33,10 +33,12 @@ In a recommender system, individuals usually give behaviour information as data 
 
 This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommandation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommandation and then we try on some approaches they suggest.
 
-The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which has the following advantages.
+The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
 
 \begin{itemize}
 	\item Learning incorporates user feedback (i.e. ratings of movies) into recommandations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
+	\item The model can take into account both a content based approaches and a collaborative filtering approaches,
+	\item The model can use any type of features,
 	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
 
