@@ -196,7 +196,7 @@ where $N$ is the number of times that this arm has been pulled and $t$ the total
 
 \subsubsection{Exact Bayesian methods}
 
-With the exact Bayesian method, we want to predict the user's rating of a movie through the inference on the user's set of parameters $\Omega = \lbrace \theta , s \rbrace $. We assume that we have $l$ history recommendations $ \mathcal{D}_l = \lbrace (x_i, t_i, r_i) \rbrace^l_{i=1}$. Where $x_i$ is the $i$-th recommendation's features vector, $t_i$ is the time elapsed since the preceding recommendation of this movie and $r_i$ is the user's feedback of the $i$-th recommendation.
+With the exact Bayesian method, we want to predict the user's rating of a movie through the inference on the user's set of parameters $\Omega = \lbrace \boldsymbol{\theta} , s \rbrace $. For the $i$-th recommendation, we assume that we have $l = i-1$ history recommendations $ \mathcal{D}_l = \lbrace (x_j, t_j, r_j) \rbrace^l_{j=1}$. Where $x_j$ is the $j$-th recommendation's features vector, $t_j$ is the time elapsed since the preceding recommendation of this movie and $r_j$ is the user's feedback of the $j$-th recommendation.
 
 We can predict the expected rating of movie k as:
 \begin{center}
@@ -209,7 +209,7 @@ The Bayesian model is developped with a composition of random variables as shown
 
 \subsubsection{Bayes inference}
 
-To get around the bad performance of the exact Bayesian model, we will use an approximated Bayesian model. The complexity of computing the the exact Bayesian model is due to the irregular form of the function $U_n(t)$. To do so, we discretize the time t into a $K$ intervals: $ [0, \xi), [\xi_1,\xi_2),...[\xi_{K-1}, +\infty)$ and then map $t$ into a vector $t = [(t-\xi_1)_{+},...(t-\xi_{K-1}),t,1]$. We approximate $U_n(t) \approx \boldsymbol{\beta}^{T}t $ where $ \boldsymbol{\beta}$ is a vector of parameters that will be learnt. We can rewrite $ U = U_c U_n \approx \boldsymbol{\theta}^{T} x \boldsymbol{\beta}^{T} t $. From the history of an user, we try to learn the expected values of $\beta$, $\theta$ and $\tau = 1/\sigma^2$ that represent user's data. Then with these datas, we can generate samples and approximate with MCMC the expected rating of each movie candidate for recommendation.
+To get around the bad performance of the exact Bayesian model, we will use an approximated Bayesian model. The complexity of computing the the exact Bayesian model is due to the irregular form of the function $U_n(t)$. To do so, we discretize the time t into a $K$ intervals: $ [0, \xi), [\xi_1,\xi_2),...[\xi_{K-1}, +\infty)$ and then map $t$ into a vector $\boldsymbol{t} = [(t-\xi_1)_{+},...(t-\xi_{K-1}),t,1]$. We approximate $U_n(t) \approx \boldsymbol{\beta}^{T}\boldsymbol{t} $ where $ \boldsymbol{\beta}$ is a vector of parameters that will be learnt. We can rewrite $ U = U_c U_n \approx \boldsymbol{\theta}^{T} \boldsymbol{x} \boldsymbol{\beta}^{T} \boldsymbol{t} $. From the history of an user, we try to learn the expected values of $\boldsymbol{\beta}$, $\boldsymbol{\theta}$ and $\tau = 1/\sigma^2$ that represent user's data. Then with these datas, we can generate samples and approximate with MCMC the expected rating of each movie candidate for recommendation.
 
 \subsection{Simulation}
 
@@ -369,15 +369,12 @@ The best techniques seems to take a greedy that explore a lot at the beginning a
 
 Exploring user preferences is a central piece of a personalised recommender system and can be used as a context in a multi-armed bandit modelisation of the recommender as mentioned by \cite{main}.
 
-As shown in the result the bayesian way is not viable as it is. Indeed, the exact bayesian takes way too much time to compute a single recommendation and attempts of implementation of the bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelized on multi-core or on a big data cluster
 
 
 %%%%%%%% ATTENTION ICI Y A DES TRUCS %%%%%%%%
 %\todo{traduire en anglais}
 %On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
 
 %\todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
 
