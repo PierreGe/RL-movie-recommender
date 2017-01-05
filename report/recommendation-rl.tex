@@ -21,7 +21,7 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 \maketitle
 
 \begin{abstract}
-  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommanding new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration tradeoff and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
+  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommending new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration tradeoff and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
 \end{abstract}
 
 \section{Introduction}
@@ -32,12 +32,12 @@ Individuals sometimes have to settle on decisions without sufficient personal ex
 In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimise the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
 
 
-This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommandation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommandation and then we try on some approaches they suggest.
+This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommendation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommendation and then we try on some approaches they suggest.
 
-The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
+The problem of movie recommendation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
 
 \begin{itemize}
-	\item Learning incorporates user feedback (i.e. ratings of movies) into recommandations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
+	\item Learning incorporates user feedback (i.e. ratings of movies) into recommendations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
 	\item The model can take into account both a content based approaches and a collaborative filtering approaches,
 	\item The model can use any type of features,
 	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
@@ -98,7 +98,7 @@ For our dataset we kept the 20-first principal components out of about 50, keepi
 
 \subsection{Contextual multi-armed bandit modelling}
 
-The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommanded to watch it). The context for each arm (movie) is a features vector containing the user features and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user features are updated depending on the movie features and the rating.
+The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommended to watch it). The context for each arm (movie) is a features vector containing the user features and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user features are updated depending on the movie features and the rating.
 
 This raises one concern : as the number of movies is gigantic, some movies might not be watched. To ensure that movies are not repeated too often, a \textit{novelty} parameter must be used.
 
@@ -114,7 +114,7 @@ This raises one concern : as the number of movies is gigantic, some movies might
 
 The content based model try to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
-The movie genre and movie year can be considered as a onehot encoded vector $x$.
+The movie genre and movie year can be considered as a onehot encoded vector $\boldsymbol{x}$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
 
 \begin{center}
@@ -123,13 +123,13 @@ Without considering other factor, the utility of a user for a movie can be repre
 
 Distinctive users have different preferences $\boldsymbol{\theta}$. Also, we do the hypothesis of a stationary true value for $\boldsymbol{\theta}$, meaning that while, we learn the user preference, its preferences stay the same.
 
-The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously for movie an higher value of $s$ is needed compared to an $s$ that would be used for music. The utility for a user in term of novelty can be defined as follows.
+The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously if we want to recommend movies instead of music, an higher value of $s$ is needed. The utility for a user in term of novelty can be defined as follows.
 
 \begin{center}
 	$ \ U_{n} = 1 - e^{\frac{t}{s}} $ 
 \end{center}
 
-The combined utility or more explicitly the expected rating for a movie and a user is defined as follows.
+The combined utility (i.e. the expected rating for a movie and a user) is defined as follows.
 
 \begin{center}
 	$ \ U = \ U_{c} \times  U_{n} = (\boldsymbol{\theta}^{T} \boldsymbol{x}) \times (1 - e^{\frac{t}{s}}) $ 
