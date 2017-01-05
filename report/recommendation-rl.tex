@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{mathtools}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{amssymb}
@@ -61,9 +62,9 @@ The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is two
 
 The first challenge was to extract the features from the IMDb homemade format and convert it into a clearer \textit{csv} format.
 
-In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users that with at least 50 ratings for those movies.
+In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
 
-Then for each movie and to also keep the problem simple and focus on the learning matter, we selected genre and year as features for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding have been apply to them resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
+To keep the features vector simple, we selected only the genre and year for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding has been applied resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
 
 \begin{table}[h]
 \center{
@@ -158,6 +159,8 @@ The novelty if defined similarly as above, so the expected rating is :
 	$ \ U = \ U_{f} \times  U_{n} = u \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
+
+
 \subsection{Bandit strategies}
 
 Many strategies to find the optimal solution have been developed over the years. A review of them is explain by \cite{kuleshov2014algorithms}.
@@ -193,17 +196,6 @@ where $N$ is the number of times that this arm has been pulled and $t$ the total
 
 \subsubsection{Exact Bayesian methods}
 
-With the exact Bayesian method, we want to predict the user's rating of a movie through the inference on the user's set of parameters $\Omega = \lbrace \theta , s \rbrace $. We assume that we have $l$ history recommendations $ \mathcal{D}_l = \lbrace (x_i, t_i, r_i) \rbrace^l_{i=1}$. Where $x_i$ is the $i$-th recommandation's features vector, $t_i$ is the time elapsed since the preceding recommandation of this movie and $r_i$ is the user's feedback of the $i$-th recommandation.
-
-We can predict the expected rating of song k as:
-\begin{center}
-$\lambda^l_k = p(U_k | \mathcal{D}_l) = \int p(U_k|\Omega)p(\Omega| \mathcal{D}_l)d\Omega$
-\end{center}
-Where $p(U_k|\mathcal{D}_l)$ is the posterior distribution of $U_k$ and $ p(\Omega| \mathcal{D}_l) $ is the posterior distribution of $ \Omega $. We recommend song $k^{\star} = arg \max\limits_{k=1...|S|} Q(\alpha, \lambda^l_k)$ where $Q$ is the quantile function that satisfies $ \mathbb{P} [ U_k \le Q(\alpha, \lambda^l_k) ]=\alpha$ and $S$ is all the movies. 
-Hence, we balance exploration and exploitation.
-
-The Bayesian model is developped with a composition of random variables as shown in \cite{main}. Because there is no closed-form solution to $ \lambda^l_k$, Markov Chain Monte Carlo (MCMC) can be used as an approximation procedure. But this method is very slow and each recommandation can last several minutes.
-
 \todo{Bayesian methods}
 % """Priors for the Bayesian models were set as uninformative ones or chosen based on preliminary simulation and user studies""" < ce qui notre tache très difficile
 
@@ -224,11 +216,13 @@ We ran each algorithm for several hundred epochs and averaged the results over m
 
 In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalised as follows.
 
-\subsubsection{Regret}
+\subsubsection{Cumulative regret}
 
-The regret can be defined
+For the $l$-th recommendation, the regret is defined as the difference between the maximum expected rating $ E[R^{l}] = max_{k=1...|S|} U_{k} $  and the expected rating $E[\hat R^{l}]$ of the recommended song is  $\Delta_{l} = E[\hat{R} ^{l}] - E[R^{l}]$. The cumulative regret for the $n$-th recommendation is then $ \sum_{l=1}^{n} \Delta_{l} = E[\hat{R} ^{l}] - E[R^{l}]$
 
-\subsubsection{Accuracy}
+\subsubsection{Accuracy (RMSE)}
+
+The root-mean-square error is a frequently used measure of the difference between the predicted value and the actually observed value. In our case, the root-mean-square error will be the square of the difference between the expected value for the rating and the actual rating given by the user.
 
 \subsubsection{Average rating}
 
@@ -340,6 +334,8 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 \todo{futur work, what could be done if you give me 10 IA guys for a week}
 % combined content based and collaborative filtering
 % comparer avec une approche supervisé
+
+\todo{futur work, real-life data, bias evaluation, big data toussa toussa}
 
 \section{Conclusion}
 
