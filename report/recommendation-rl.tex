@@ -183,7 +183,14 @@ However, the effectiveness of variating $\epsilon$ over time is disputed by \cit
 
 \subsubsection{Greedy UCB}
 
-\todo{GreedyUCB}
+The problem with the two previous greedy algorithms is that they estimate the mean for each arm but not the standard deviation. The greedy algorithm with upper confidence bounds (UCB) solves that problem by computing for each arm a UCB such that the probability that the rating stands in the interval $[\hat{r}-U, \hat{r}+U]$ is high. \\
+We define the UCB using Hoeffding's inequality such that $p = t^{-4}$.
+
+$$ P[r > \hat{r} + U] \leq e^{-2NU^{2}} $$
+$$ t^{-4} = e^{-2NU^{2}} $$
+$$ U = \sqrt{\frac{2\log{t}}{N}} $$
+
+where $N$ is the number of times that this arm has been pulled and $t$ the total number of pulls.
 
 \subsubsection{Exact Bayesian methods}
 
