@@ -95,3 +95,6 @@ ENV/
 .ropeproject
 ve/
 data/
+report/*.pdf
+report/*.aux
+report/*.log
