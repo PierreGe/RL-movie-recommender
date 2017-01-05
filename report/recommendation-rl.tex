@@ -303,6 +303,8 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 
 \subsection{Collaborative filtering and content based comparison}
 
+Following, \cite{main} suggestion, we then looked at the collaborative filtering model to movie recommendation and compared it to content based. Here are the result.
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo1.png}
@@ -310,6 +312,8 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 \label{schema}
 \end{center}
 \end{figure}
+
+The graph above tends to show that the collaborative filtering tends to return better longer term result at least for a greedy algorithm. Indeed the cumulative regret is lower for collaborative filtering than it is for a content based model.
 
 \begin{figure}[H]
 \begin{center}
@@ -319,6 +323,8 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 \end{center}
 \end{figure}
 
+The graph above seems to show that the collaborative filtering model is slightly more accurate than the content based model having a inferior mean square error.
+
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo3.png}
@@ -326,6 +332,8 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 \label{schema}
 \end{center}
 \end{figure}
+
+Maybe the more important graph for the comparison is the one above. It tends to show that there is a significant different on the feedback given by the user depending on the model used for the greedy algorithm. User tends to give a higher feedback to movie suggested by the collaborative filtering approach.
 
 \todo{result of collaborative filtering}
 
