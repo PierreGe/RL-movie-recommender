@@ -143,15 +143,13 @@ where $\boldsymbol{\theta}_{t} $ is the user preferences at epoch $t$, $ r_{t} $
 
 \subsubsection{Collaborative filtering}
 
-The collaborative filtering model tries to find a movie that a user with similar preferences gave a good rating to. It takes into account others users rating and novelty of a movie.
+The collaborative filtering model tries to find a movie that a user with similar preferences gave a good rating to. It takes into account other users rating and the novelty of movies.
 
-The algorithm will start by finding a subset of the user and the $k$ other users with the most similar preferences. The distance between users is defined as the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
+The algorithm will start by finding a subset of the user and the $k$ other users with the most similar preferences. The distance between users is defined as the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and every other users. We obtain a list of all movies watched by those other users. We consider for each movie only the best rating. Those ratings become the expected ratings for each movie for the targeted user. To avoid any bias due to users over- or under-rating movies, other users ratings are weighted by the mean of all their ratings.
 
 \begin{center}
 	$ \ U_{f} = u $ 
 \end{center}
-
-Note that others users rating are weighted by the average means they give to movie to avoid biais.
 
 The novelty if defined similarly as above, so the expected rating is :
 
