@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{mathtools}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
@@ -199,11 +200,13 @@ The simulation consisted on simulating the interaction of a user and a recommend
 
 In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalised as follows.
 
-\subsubsection{Regret}
+\subsubsection{Cumulative regret}
 
-The regret can be defined
+For the $l$-th recommendation, the regret is defined as the difference between the maximum expected rating $ E[R^{l}] = max_{k=1...|S|} U_{k} $  and the expected rating $E[\hat R^{l}]$ of the recommended song is  $\Delta_{l} = E[\hat{R} ^{l}] - E[R^{l}]$. The cumulative regret for the $n$-th recommendation is then $ \sum_{l=1}^{n} \Delta_{l} = E[\hat{R} ^{l}] - E[R^{l}]$
 
-\subsubsection{Accuracy}
+\subsubsection{Accuracy (RMSE)}
+
+The root-mean-square error is a frequently used measure of the difference between the predicted value and the actually observed value. In our case, the root-mean-square error will be the square of the difference between the expected value for the rating and the actual rating given by the user.
 
 \subsubsection{Average rating}
 
