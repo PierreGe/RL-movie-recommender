@@ -98,7 +98,7 @@ For our dataset we kept the 20-first principal components out of about 50, keepi
 
 \subsection{Contextual multi-armed bandit modelling}
 
-The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommended to watch it). The context for each arm (movie) is a features vector containing the user features and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user features are updated depending on the movie features and the rating.
+The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommended to watch it). The context for each arm (movie) is a features vector containing the user preferences and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user preferences are updated depending on the movie features and the rating.
 
 This raises one concern : as the number of movies is gigantic, some movies might not be watched. To ensure that movies are not repeated too often, a \textit{novelty} parameter must be used.
 
@@ -112,7 +112,7 @@ This raises one concern : as the number of movies is gigantic, some movies might
 
 \subsubsection{Content based}
 
-The content based model try to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
+The content based model tries to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
 The movie genre and movie year can be considered as a onehot encoded vector $\boldsymbol{x}$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
@@ -135,13 +135,17 @@ The combined utility (i.e. the expected rating for a movie and a user) is define
 	$ \ U = \ U_{c} \times  U_{n} = (\boldsymbol{\theta}^{T} \boldsymbol{x}) \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
-The last task of the recommender is then to propose the movie with the highest expected rating to the user and update the user preferences $\boldsymbol{\theta}$ according to the difference in rating received and predicted.
+The task of the recommender is to propose a movie to the user depending on the expected ratings computed for each movie and to update the user preferences $\boldsymbol{\theta}$ according to the rating received from the user. We use an iterative mean.
+
+$$ \boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_{t} + r_{t} \times \boldsymbol{x}_{t} $$
+
+where $\boldsymbol{\theta}_{t} $ is the user preferences at epoch $t$, $ r_{t} $ is the rating received for the movie recommended at epoch $t$ and $\boldsymbol{x}_{t}$ is the movie features for the movie recommended at epoch $t$.
 
 \subsubsection{Collaborative filtering}
 
-The collaborative filtering model try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
+The collaborative filtering model tries to find a movie that a user with similar preferences gave a good rating to. It takes into account others users rating and novelty of a movie.
 
-The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
+The algorithm will start by finding a subset of the user and the $k$ other users with the most similar preferences. The distance between users is defined as the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
 
 \begin{center}
 	$ \ U_{f} = u $ 
