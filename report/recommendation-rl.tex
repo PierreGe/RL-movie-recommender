@@ -174,13 +174,14 @@ The greedy time dependent is a variation of the previously mentioned greedy wher
 
 However, the effectiveness of variating $\epsilon$ over time is disputed by \cite{vermorel2005multi} whose did not find any practical advantage to using these method. As a result, we will test both approaches.
 
-\subsubsection{GreedyUCB}
+\subsubsection{Greedy UCB}
 
 \todo{GreedyUCB}
 
-\subsubsection{BayesUCB}
+\subsubsection{Bayes UCB}
 
 \todo{BayesUCB}
+% """Priors for the Bayesian models were set as uninformative ones or chosen based on preliminary sim- ulation and user studies""" < ce qui notre tache très difficile
 
 \subsubsection{Bayes inference}
 
@@ -188,8 +189,14 @@ However, the effectiveness of variating $\epsilon$ over time is disputed by \cit
 
 \subsection{Simulation}
 
-\todo{explain how simulation is done}
+We conducted an empirical efficiency study of the algorithms mentioned above as well as the content based and collaborative filtering modeling. 
 
+Experiments were conducted on personal computer and the programming language $python$ was used to implement models and algorithms.
+
+The simulation consisted on simulating the interaction of a user and a recommender. \todo{explain the simulation better}
+
+
+% ------ results -------
 \section{Results}
 
 \todo{simple result of adaptation of music paper to movie paper avec greedy vs random}
@@ -199,6 +206,7 @@ However, the effectiveness of variating $\epsilon$ over time is disputed by \cit
 \todo{result of collaborative filtering}
 
 
+% ------ discussion -------
 \section{Discussion}
 
 \todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
