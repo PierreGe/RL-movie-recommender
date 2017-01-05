@@ -367,30 +367,30 @@ The best techniques seems to take a greedy that explore a lot at the beginning a
 % ------ discussion -------
 \section{Discussion}
 
+Exploring user preferences is a central piece of a personalised recommender system and can be used as a context in a multi-armed bandit modelisation of the recommender as mentioned by \cite{main}.
+
+
+
 %%%%%%%% ATTENTION ICI Y A DES TRUCS %%%%%%%%
-\todo{traduire en anglais}
-On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
+%\todo{traduire en anglais}
+%On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
+%\todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
 
-However, one could argues that the computation could be parallelized on multi-core or on a big data cluster.  \todo{dernier phrase in discussion}
+%However, one could argues that the computation could be parallelized on multi-core or on a big data cluster.  \todo{dernier phrase in discussion}
 
 
-true bayes-ucb => too slow
-epsilon-greedy and random => too bad
-greedy content based => good on average
-greedy CF => good on top of the pop
+%true bayes-ucb => too slow
+%epsilon-greedy and random => too bad
+%greedy content based => good on average
+%greedy CF => good on top of the pop
 
-\todo{maintenant qu'on a fait la recherche, si tu devais créer un vrai système tu utilises quoi comme technique, traduire en anglais}
+%\todo{maintenant qu'on a fait la recherche, si tu devais créer un vrai système tu utilises quoi comme technique, traduire en anglais}
+%FACILE SALOPE du CB si c'est pas bcp rated et du CF si c'est bcp rated ou une approchye hybride comme qu'il dit pierre.
 
-FACILE SALOPE du CB si c'est pas bcp rated et du CF si c'est bcp rated ou une approchye hybride comme qu'il dit pierre.
 
-\todo{futur work, what could be done if you give me 10 IA guys for a week}
-The above proposition about an hybrid approach
-Compare with a supervised approach
-Scale on a big data cluster => check if results are not biased by lack of data
-More time to work on bayesian inference
+For future direction, we suggest to research an hybrid approaches between collaborative filtering and content based. We would also suggest to compare the result of the reinforcement learning with a more traditional supervised learning approaches. We would also recommend a more scalable approaches on a big data cluster in order to include more movies features, more movies and more user.
 
 
 \section{Conclusion}
