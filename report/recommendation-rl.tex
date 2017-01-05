@@ -29,34 +29,34 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 
 Individuals sometimes have to settle on decisions without sufficient personal experience of the several choices. On a regular daily basis, their decisions depend on recommendations, advices and opinions from other individuals either by listening in conversations or by direct suggestion of movies, tv shows, holiday destinations, etc. Recommender systems help and enlarge this normal social process.
 
-In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such Netflix \cite{netflix-article-recommender} or YouTube \footnote{http://www.youtube.com} allowing them to make their content more attractive in order to increase viewing and in order to optimise its monetisation. It allows to infer customer's center of interest and also allows to detect, if a behaviour is a general trend between customers, potential improvements in content to better meet the expectations of the public. 
+In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimise the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
 
 
-This work follows the steps of \cite{main} who have implemented a music recommendation system using q-learning. In their research, \cite{main} explains was could be done to adapt their work to movies recommendation as well as a suggestion trying a collaborative filtering. So this work, is mainly about adapting their strategy of music recommendation to movies recommendation as well as exploring new strategies.
+This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommandation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommandation and then we try on some approaches they suggest.
 
-The problem of movie recommendation is modelised as a multi-armed bandit [\cite{sutton1998reinforcement}] thus allowing it to have the following advantages. 
+The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
 
 \begin{itemize}
-	\item The learning is done by incorporating user feedback (i.e. ratings of movies) into recommendations allowing us to fit diversity in users preferences,
-	\item The model takes into account novelty of movies and repetitions thus not recommending movies watched recently,
-	\item The learning balances exploration and exploitation thus mitigating the difficulty of cold-start,
-	\item The model can take into account both a content based approaches and a collaborative filtering approaches.
+	\item Learning incorporates user feedback (i.e. ratings of movies) into recommandations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
+	\item The model can take into account both a content based approaches and a collaborative filtering approaches,
+	\item The model can use any type of features,
+	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
 
 
-In the following sections, we will firstly introduce methods used. Then we will review different results before discussing them.
+In the following sections, we will first introduce the methods used. Then we will review the results we obtained before discussing them.
 
 \section{Methods}
 
 \subsection{Data mining}
 
-The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is twofolds, the first part is a movie catalog containing relevant information about each movies such as the genre, keywords describing the content, the year, the rating by others users and votes count. That part is publicly available from IMDb FTP in a homemade format. The second part of data is RSS flux of movies watched and rated by IMDb users containing the title of the movie along the rating and the time it was watched.
+The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is twofolds. The first part is a movie catalog containing relevant information about each movies such as the genre, keywords describing the content, the year, the mean rating and number of votes. That part is publicly available from IMDb FTP in a homemade format. The second part of data is RSS flux of movies watched and rated by IMDb users containing the title of the movie along with the rating and the time it was watched.
 
 \subsection{Features extraction and selection}
 
-The first challenges was to extract the feature from the IMDb homemade format and made into a clearer \textit{csv} format.
+The first challenge was to extract the features from the IMDb homemade format and convert it into a clearer \textit{csv} format.
 
-In order to reduce the complexity of the algorithm and focus on the learning matter and not transforming the problem into a big data and parallelisation problem problem, a subset of movie, a selection of user and movies adding up to about 430.000 user-movie pair have been made.
+In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
 
 Then for each movie and to also keep the problem simple and focus on the learning matter, we selected genre and year as features for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding have been apply to them resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
 
@@ -250,6 +250,8 @@ The root-mean-square error is a frequently used measure of the difference betwee
 
 \todo{futur work, what could be done if you give me 10 IA guys for a week}
 % combined content based and collaborative filtering
+
+\todo{futur work, real-life data, bias evaluation, big data toussa toussa}
 
 \section{Conclusion}
 
