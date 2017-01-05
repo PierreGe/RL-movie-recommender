@@ -220,7 +220,7 @@ Experiments were conducted on a personal computer and the programming language $
 The simulation consists in the interaction between a recommender and a user. To simulate online learning, ratings from users are known in advance and retrieved at each epoch. 
 We ran each algorithm for several hundred epochs and averaged the results over more than 100 users. 
 
-Results can be found in section \ref{results} \todo{explain the simulation better}
+Results can be found in section \ref{results} .
 
 \subsection{Metrics} \label{metrics}
 
@@ -304,7 +304,7 @@ Due to the Markov Chain Monte Carlo approximation method and the high number of 
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/bayes_time1.png}
 \caption{Cumulative sum of the time needed to produce the recommendation}
-\label{greedy3}
+\label{bayes_time1}
 \end{center}
 \end{figure}
 
@@ -312,8 +312,7 @@ On the graph above, we can see that the exact bayesian take about 4 minutes to p
 
 \subsubsection{Bayesian inference}
 
-\todo{Bayesian inference}
-
+The Bayesian inference method shown in \citep{main} involve complexe computations. Some parts of the algorithm are partially incomplete and left for interpretation. Furthermore the hyperparameters presented in the paper are used for music recommendation and hence might not be suitable for movie recommendation. Attemps of implementation of this method have not provided expected results shown in the paper. The debbuging of code containing partial interpretation is a highly complicated task, on which we worked extensively without success. 
 
 \subsection{Collaborative filtering and content based comparison}
 
@@ -323,7 +322,7 @@ Following, \cite{main} suggestion, we then looked at the collaborative filtering
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo1.png}
 \caption{Comparison of the average cumulative regret for greedy algorithm on the content based model and collaborative filtering model}
-\label{schema}
+\label{collabo1}
 \end{center}
 \end{figure}
 
@@ -333,7 +332,7 @@ The graph above tends to show that the collaborative filtering tends to return b
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo2.png}
 \caption{Comparison of the mean square error for thecontent based model and collaborative filtering model}
-\label{schema}
+\label{collabo2}
 \end{center}
 \end{figure}
 
@@ -343,7 +342,7 @@ The graph above seems to show that the collaborative filtering model is slightly
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo3.png}
 \caption{Comparison of the average rating given as feedback by the user for each algorithm}
-\label{schema}
+\label{collabo3}
 \end{center}
 \end{figure}
 
@@ -351,7 +350,19 @@ Maybe the more important graph for the comparison is the one above. It tends to 
 
 \subsection{Overall performance}
 
-\todo{overall performace}
+To conclude the results section, let's look at the overall performance of all models and algorithms 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/greedy_all0.png}
+\caption{Comparison of all model and algorithm}
+\label{overallperf}
+\end{center}
+\end{figure}
+
+Obviously, the random random choice is the worst.
+
+The best techniques seems to take a greedy that explore a lot at the beginning and reduce the exploration in profit of exploitation over time while using a collaborative filtering model.
 
 % ------ discussion -------
 \section{Discussion}
