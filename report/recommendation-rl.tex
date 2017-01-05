@@ -228,16 +228,17 @@ This section will explore the different results obtained throughout all experime
 
 \subsection{Adaptation of \cite{main} to movie recommendation}
 
-Here are the results of the adaptation of \cite{main} to movie recommendation using a greedy algorithm and the same content based model as described in that paper. Let's look at metrics defined in \ref{metrics}
-
+Here are the results of the adaptation of \cite{main} to movie recommendation using a greedy algorithm and the same content based model as described in that paper. Let's look at metrics defined in \ref{metrics}.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/greedy0.png}
-\caption{capt0}
+\caption{Average cumulative regret for greedy algorithm on the content based approach}
 \label{greedy0}
 \end{center}
 \end{figure}
+
+This graph tells us that on the long term or mid term, the recommender will give us better result than a random selection of movie. Also it underlines the importance of balancing exploration and exploitation. Indeed, the result difference between different greedy approach is quite significant.
 
 \begin{figure}[H]
 \begin{center}
@@ -246,6 +247,10 @@ Here are the results of the adaptation of \cite{main} to movie recommendation us
 \label{greedy1}
 \end{center}
 \end{figure}
+
+The graph above tends to show that it takes about 15 recommendations before starting to actually exploit the user preferences for two greedy except greedy-UCB which seems to learn more slowly. After 15 recommendations, those two greedy algorithm error are getting smaller meaning that they tends to predict the rating the user will give to the algorithm better.
+
+% exploite trop
 
 \begin{figure}[H]
 \begin{center}
