@@ -382,16 +382,6 @@ The reason why the greedy-UCB algorithm does not seem to work well is that the U
 
 We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalizable to any kind of recommendation ? \cite{main} uses content-based models. In a future work, we could try the collaborative filtering models on music.
 
-%%%%%%%% ATTENTION ICI Y A DES TRUCS %%%%%%%%
-%\todo{traduire en anglais}
-%On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%\todo{maintenant qu'on a fait la recherche, si tu devais créer un vrai système tu utilises quoi comme technique, traduire en anglais}
-%FACILE SALOPE du CB si c'est pas bcp rated et du CF si c'est bcp rated ou une approchye hybride comme qu'il dit pierre.
-
-
 For future direction, we suggest to research an hybrid approaches between collaborative filtering and content based. We would also suggest to compare the result of the reinforcement learning with a more traditional supervised learning approaches. We would also recommend a more scalable approaches on a big data cluster in order to include more movies features, more movies and more user.
 
 
@@ -400,11 +390,6 @@ For future direction, we suggest to research an hybrid approaches between collab
 We built a thorough functional movie recommender system including data mining, features engineering, dimension reduction and several models and content based as well as a collaborative filtering approaches to reinforcement learning. 
 Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration tradeoff to solve the usual recommender cold-start problem. We also successfully integrated novelty in our model to handle and avoid too much movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we defined future possible research.
 
-%We argue that this system would could easlily work on the entire database of IMDb if run on a scalable system.
-%Adapt some algos from \cite{main} to movies as they suggested. It works !
-%Use collaborative filtering. It works !
-%Use novelty : it works with a great $s$
-%Showed that bayes is not viable in production because really slow
 
 \footnotesize
 \bibliographystyle{apalike}
