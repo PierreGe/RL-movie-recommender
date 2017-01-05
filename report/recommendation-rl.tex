@@ -196,6 +196,17 @@ where $N$ is the number of times that this arm has been pulled and $t$ the total
 
 \subsubsection{Exact Bayesian methods}
 
+With the exact Bayesian method, we want to predict the user's rating of a movie through the inference on the user's set of parameters $\Omega = \lbrace \theta , s \rbrace $. We assume that we have $l$ history recommendations $ \mathcal{D}_l = \lbrace (x_i, t_i, r_i) \rbrace^l_{i=1}$. Where $x_i$ is the $i$-th recommandation's features vector, $t_i$ is the time elapsed since the preceding recommandation of this movie and $r_i$ is the user's feedback of the $i$-th recommandation.
+
+We can predict the expected rating of song k as:
+\begin{center}
+$\lambda^l_k = p(U_k | \mathcal{D}_l) = \int p(U_k|\Omega)p(\Omega| \mathcal{D}_l)d\Omega$
+\end{center}
+Where $p(U_k|\mathcal{D}_l)$ is the posterior distribution of $U_k$ and $ p(\Omega| \mathcal{D}_l) $ is the posterior distribution of $ \Omega $. We recommend song $k^{\star} = arg \max\limits_{k=1...|S|} Q(\alpha, \lambda^l_k)$ where $Q$ is the quantile function that satisfies $ \mathbb{P} [ U_k \le Q(\alpha, \lambda^l_k) ]=\alpha$ and $S$ is all the movies. 
+Hence, we balance exploration and exploitation.
+
+The Bayesian model is developped with a composition of random variables as shown in \cite{main}. Because there is no closed-form solution to $ \lambda^l_k$, Markov Chain Monte Carlo (MCMC) can be used as an approximation procedure. But this method is very slow and
+
 \todo{Bayesian methods}
 % """Priors for the Bayesian models were set as uninformative ones or chosen based on preliminary simulation and user studies""" < ce qui notre tache très difficile
 
