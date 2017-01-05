@@ -243,7 +243,7 @@ The average rating is the simplest metric consisting of only the observed rating
 
 \subsubsection{Computation time}
 
-The last metric is the time needed to compute a recommendation. Indeed, usually a recommendation should be computed in a reasonable time, the system can't afford to make the user wait for several minutes before giving him a recommendation. However, one could argues that the computation could be parallelized on multi-core or on a big data cluster and.  \todo{dernier phrase in discussion}
+The last metric is the time needed to compute a recommendation. Indeed, usually a recommendation should be computed in a reasonable time, the system can't afford to make the user wait for several minutes before giving him a recommendation. However, one could argues that the computation could be parallelized on multi-core or on a big data cluster.  \todo{dernier phrase in discussion}
 
 
 % ------ results -------
@@ -300,7 +300,22 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 
 \subsection{Bayesian methods}
 
-\todo{more diverse choice in bandit strategies including}
+\subsubsection{Exact bayesian}
+
+Due to the Markov Chain Monte Carlo approximation method and the high number of random sampling it need to compute, the exact bayesian method take a long time as show below.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/bayes_time1.png}
+\caption{Cumulative sum of the time needed to produce the recommendation}
+\label{greedy3}
+\end{center}
+\end{figure}
+
+On the graph above, we can see that the exact bayesian take about 4 minutes to produce a single recommendation. Therefore this model does not seems to be suitable for a movie recommender system if not adapted to widely parallel way to compute each utility for a recommendation.
+
+
+\todo{Bayesian inference}
 
 
 \subsection{Collaborative filtering and content based comparison}
