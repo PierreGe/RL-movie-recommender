@@ -55,7 +55,7 @@ The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is two
 
 The first challenge was to extract the features from the IMDb homemade format and convert it into a clearer \textit{csv} format.
 
-In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users that with at least 50 ratings for those movies.
+In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
 
 Then for each movie and to also keep the problem simple and focus on the learning matter, we selected genre and year as features for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding have been apply to them resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
 
@@ -247,6 +247,8 @@ The regret can be defined
 
 \todo{futur work, what could be done if you give me 10 IA guys for a week}
 % combined content based and collaborative filtering
+
+\todo{futur work, real-life data, bias evaluation, big data toussa toussa}
 
 \section{Conclusion}
 
