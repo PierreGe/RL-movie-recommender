@@ -28,22 +28,20 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 
 Individuals sometimes have to settle on decisions without sufficient personal experience of the several choices. On a regular daily basis, their decisions depend on recommendations, advices and opinions from other individuals either by listening in conversations or by direct suggestion of movies, tv shows, holiday destinations, etc. Recommender systems help and enlarge this normal social process.
 
-In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such Netflix \cite{netflix-article-recommender} or YouTube \footnote{http://www.youtube.com} allowing them to make their content more attractive in order to increase viewing and in order to optimise its monetisation. It allows to infer customer's center of interest and also allows to detect, if a behaviour is a general trend between customers, potential improvements in content to better meet the expectations of the public. 
+In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimise the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
 
 
-This work follows the steps of \cite{main} who have implemented a music recommendation system using q-learning. In their research, \cite{main} explains was could be done to adapt their work to movies recommendation as well as a suggestion trying a collaborative filtering. So this work, is mainly about adapting their strategy of music recommendation to movies recommendation as well as exploring new strategies.
+This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommandation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommandation and then we try on some approaches they suggest.
 
-The problem of movie recommendation is modelised as a multi-armed bandit [\cite{sutton1998reinforcement}] thus allowing it to have the following advantages. 
+The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which has the following advantages.
 
 \begin{itemize}
-	\item The learning is done by incorporating user feedback (i.e. ratings of movies) into recommendations allowing us to fit diversity in users preferences,
-	\item The model takes into account novelty of movies and repetitions thus not recommending movies watched recently,
-	\item The learning balances exploration and exploitation thus mitigating the difficulty of cold-start,
-	\item The model can take into account both a content based approaches and a collaborative filtering approaches.
+	\item Learning incorporates user feedback (i.e. ratings of movies) into recommandations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
+	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
 
 
-In the following sections, we will firstly introduce methods used. Then we will review different results before discussing them.
+In the following sections, we will first introduce the methods used. Then we will review the results we obtained before discussing them.
 
 \section{Methods}
 
