@@ -112,16 +112,16 @@ This raises one concern : as the number of movies is gigantic, some movies might
 
 \subsubsection{Content based}
 
-The content based model try to find a movie that is close to the learned user preferences $\theta$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
+The content based model try to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
 The movie genre and movie year can be considered as a onehot encoded vector $x$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
 
 \begin{center}
-	$ \ U_{c} = \theta^{T} * x$ 
+	$ \ U_{c} = \boldsymbol{\theta}^{T} \boldsymbol{x}$ 
 \end{center}
 
-Distinctive users have different preferences $\theta$. Also, we do the hypothesis of a stationary true value for $\theta$, meaning that while, we learn the user preference, its preferences stay the same.
+Distinctive users have different preferences $\boldsymbol{\theta}$. Also, we do the hypothesis of a stationary true value for $\boldsymbol{\theta}$, meaning that while, we learn the user preference, its preferences stay the same.
 
 The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously for movie an higher value of $s$ is needed compared to an $s$ that would be used for music. The utility for a user in term of novelty can be defined as follows.
 
@@ -132,16 +132,16 @@ The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus19
 The combined utility or more explicitly the expected rating for a movie and a user is defined as follows.
 
 \begin{center}
-	$ \ U = \ U_{c} *  U_{n} = (\theta^{T} * x) * (1 - e^{\frac{t}{s}}) $ 
+	$ \ U = \ U_{c} \times  U_{n} = (\boldsymbol{\theta}^{T} \boldsymbol{x}) \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
-The last task of the recommender is then to propose the movie with the highest expected rating to the user and update the user preferences $\theta$ according to the difference in rating received and predicted.
+The last task of the recommender is then to propose the movie with the highest expected rating to the user and update the user preferences $\boldsymbol{\theta}$ according to the difference in rating received and predicted.
 
 \subsubsection{Collaborative filtering}
 
 The collaborative filtering model try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
 
-The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\theta$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
+The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
 
 \begin{center}
 	$ \ U_{f} = u $ 
@@ -152,7 +152,7 @@ Note that others users rating are weighted by the average means they give to mov
 The novelty if defined similarly as above, so the expected rating is :
 
 \begin{center}
-	$ \ U = \ U_{f} *  U_{n} = u * (1 - e^{\frac{t}{s}}) $ 
+	$ \ U = \ U_{f} \times  U_{n} = u \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
 
