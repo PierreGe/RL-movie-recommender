@@ -259,7 +259,7 @@ Here are the results of the adaptation of \cite{main} to movie recommendation us
 \end{center}
 \end{figure}
 
-This graph tells us that on the long term or mid term, the recommender will give us better result than a random selection of movie. Also it underlines the importance of balancing exploration and exploitation. Indeed, the result difference between different greedy approach is quite significant.
+This graph tells us that on the long term or mid term, the recommender will give us better result than a random selection of movie. Also it underlines the importance of balancing exploration and exploitation. Indeed, the result difference between different greedy approach is quite significant. We can see that greedy UCB does not seem to work well.
 
 \begin{figure}[H]
 \begin{center}
@@ -376,6 +376,8 @@ As shown in the result the bayesian way is not viable as it is. Indeed, the exac
 %\todo{traduire en anglais}
 %On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
 
 %\todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
 
