@@ -367,9 +367,9 @@ The best techniques seems to take a greedy that explore a lot at the beginning a
 % ------ discussion -------
 \section{Discussion}
 
-Exploring user preferences is a central piece of a personalized recommender system and can be used as a context in a multi-armed bandit modelization of the recommender as mentioned by \cite{main}.
+Exploring user preferences is a central piece of a personalized recommender system and can be used as a context in a multi-armed bandit modelization of the recommender as mentioned by \cite{main}.\\
 
-As shown in the result the Bayesian way is not viable as it is. Indeed, the exact Bayesian takes way too much time to compute a single recommendation and attempts of implementation of the Bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster
+As shown in the result the Bayesian way is not viable as it is. Indeed, the exact Bayesian takes way too much time to compute a single recommendation and attempts of implementation of the Bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster.\\
 
 The comparison of the different viable algorithms have shown the following : 
 \begin{itemize}
@@ -378,17 +378,20 @@ The comparison of the different viable algorithms have shown the following :
 	\item a greedy that variate the exploration and use collaborative filtering give the best results of all?
 \end{itemize}
 
-The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
+The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.\\
 
-We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalizable to any kind of recommendation ? \cite{main} uses content-based models. In a future work, we could try the collaborative filtering models on music.
+We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalizable to any kind of recommendation ? \cite{main} uses content-based models. In a future work, we could try the collaborative filtering models on music.\\
 
 For future direction, we suggest to research an hybrid approaches between collaborative filtering and content based. We would also suggest to compare the result of the reinforcement learning with a more traditional supervised learning approaches. We would also recommend a more scalable approaches on a big data cluster in order to include more movies features, more movies and more user.
 
 
 \section{Conclusion}
 
-We built a thorough functional movie recommender system including data mining, features engineering, dimension reduction and several models and content based as well as a collaborative filtering approaches to reinforcement learning. 
-Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration trade-off to solve the usual recommender cold-start problem. We also successfully integrated novelty in our model to handle and avoid too much movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we defined future possible research.
+We built a thorough functional movie recommender system including data mining, features engineering, dimension reduction and several models and content based as well as a collaborative filtering approaches to reinforcement learning. \\
+
+Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration trade-off to solve the usual recommender cold-start problem. \\
+
+We also successfully integrated novelty in our model to handle and avoid too much movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we defined future possible research.
 
 
 \footnotesize
