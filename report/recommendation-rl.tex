@@ -251,8 +251,8 @@ This graph tells us that on the long term or mid term, the recommender will give
 \end{figure}
 
 The graph above tends to show that it takes about 15 recommendations before starting to actually exploit the user preferences for two greedy except greedy-UCB which seems to learn more slowly. After 15 recommendations, those two greedy algorithm error are getting smaller meaning that they tends to predict the rating the user will give to the algorithm better.
-
-% exploite trop
+The explanation to why greedy will get a smaller error than random is because greedy will exploit the result and recommend movie with features similar to user preferences thus predicting the utility with more accuracy.
+The explanation to why random get more accurate in term or prediction of rating over time without doing exploitation is because at first the user feature are initialised to zero and then are updated to match what the user like.
 
 \begin{figure}[H]
 \begin{center}
