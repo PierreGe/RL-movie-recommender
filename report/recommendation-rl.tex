@@ -369,18 +369,18 @@ The best techniques seems to take a greedy that explore a lot at the beginning a
 
 Exploring user preferences is a central piece of a personalised recommender system and can be used as a context in a multi-armed bandit modelisation of the recommender as mentioned by \cite{main}.
 
-As shown in the result the bayesian way is not viable as it is. Indeed, the exact bayesian takes way too much time to compute a single recommendation and attempts of implementation of the bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster
+As shown in the result the bayesian way is not viable as it is. Indeed, the exact bayesian takes considerable time to compute a single recommendation and attempts of implementation of the bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster
 
 The comparison of the different viable algorithms have show the following : 
 \begin{itemize}
 	\item $\epsilon-greedy$ give on of the poorest result,
 	\item a greedy that variate the exploration and is content based give satisfactory results,
-	\item a greedy that variate the exploration and use collaborative filtering give the best results of all?
+	\item a greedy that variate the exploration and use collaborative filtering give the best results of all.
 \end{itemize}
 
-The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
+The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is difficult to gauge and to fit in our contextual model. Bayes-UCB should have solve this problem by representing the rating as a random variable but as said above, is not viable either.
 
-We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalizable to any kind of recommendation ? \cite{main} uses content-based models. In a future work, we could try the collaborative filtering models on music.
+We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalisable to any kind of recommendation ? Moreover, one must keep in mind that a collaborative filtering approach tends to recommend to user popular item thus discarding less known item, meaning that for movies, it will suggest blockbusters over a small budget productions.
 
 For future direction, we suggest to research an hybrid approaches between collaborative filtering and content based. We would also suggest to compare the result of the reinforcement learning with a more traditional supervised learning approaches. We would also recommend a more scalable approaches on a big data cluster in order to include more movies features, more movies and more user.
 
