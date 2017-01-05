@@ -21,7 +21,7 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 \maketitle
 
 \begin{abstract}
-  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommanding new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration tradeoff and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
+  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommending new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration tradeoff and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
 \end{abstract}
 
 \section{Introduction}
@@ -32,16 +32,20 @@ Individuals sometimes have to settle on decisions without sufficient personal ex
 In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimise the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
 
 
-This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommandation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommandation and then we try on some approaches they suggest.
+This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommendation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommendation and then we try on some approaches they suggest.
 
-The problem of movie recommandation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
+The problem of movie recommendation is modeled as a contextual multi-armed bandit [\cite{sutton1998reinforcement}] [\cite{lu2010contextual}] which gives us the following advantages.
 
 \begin{itemize}
-	\item Learning incorporates user feedback (i.e. ratings of movies) into recommandations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
+	\item Learning incorporates user feedback (i.e. ratings of movies) into recommendations thus fitting diversity in users preferences, as opposed to \textit{context-free} multi-armed bandit,
 	\item The model can take into account both a content based approaches and a collaborative filtering approaches,
 	\item The model can use any type of features,
 	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
+
+The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and her goal is to choose wisely which arm to play in order to maximise the total payoff.
+
+The contextual multi-armed bandit is a generalization of the multi-armed bandit where the reward obtained from each arm depends also on a \textit{context}. The context contains information about the arm and the player.
 
 
 In the following sections, we will first introduce the methods used. Then we will review the results we obtained before discussing them.
@@ -77,83 +81,85 @@ Movie 3  & 0 &   0 & 0 & ...\\ \hline
 
 \subsection{Dimension reduction}
 
-The resulting feature space of the feature extraction process is quite sizable thus making the recommendation quite computational intensive.
+The feature space resulting from the feature extraction process is quite large, making the recommendation computational intensive.
 In order to deal with that problem, the feature space size has been reduced using Principal Components Analysis (PCA) [\cite{principalcompanalysis}].
 
-The principal components analysis is a machine learning procedure that apply an  orthogonal transformation to the dataset in order to obtains a new set of values which have the property of a minimised covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components.
+The principal components analysis is a machine learning procedure that apply an orthogonal transformation to the dataset in order to obtain a new set of values that minimises the covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components thus removing first the components with lesser variance.
 
-For our dataset we kept, the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
+For our dataset we kept the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=2.1in]{img/pca.png}
-\caption{Example of a 2 dimension PCA. A reduction to one dimension would be to keep only PC1.}
+\caption{Example of a 2 dimension PCA. A reduction to one dimension would keep only PC1.}
 \label{pca}
 \end{center}
 \end{figure}
 
-\subsection{Multi armed bandit modelling}
+\subsection{Contextual multi-armed bandit modelling}
 
-The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and its goal is to choose wisely which arm to play in order to maximise the total payoff.
+The movie recommendation problem can be seen as a contextual multi-armed bandit problem where each arm is a movie and a user can pull it (be recommended to watch it). The context for each arm (movie) is a features vector containing the user preferences and the movie features. The reward (rating) obtained from pulling the arm (watching the movie) depends on this context. When the rating is returned, the user preferences are updated depending on the movie features and the rating.
 
-The movie recommendation problem can be seen as a bandit problem where each arm is a movie and a user can pull it (watch it). The reward or loss or can be seen as the difference between the expected rating of a movie for a suer and the the true rating given as a feedback by the user. As the number of arm is gigantic and each arm are not even played once, an heuristic is used to help the system into choosing an arm. The heuristic can be content based or a collaborative filtering.
+This raises one concern : as the number of movies is gigantic, some movies might not be watched. To ensure that movies are not repeated too often, a \textit{novelty} parameter must be used.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=3.4in]{img/schema.png}
-\caption{Seeing a movie recommender as a multi-armed bandit problem}
+\caption{Seeing a movie recommender as a contextual multi-armed bandit problem}
 \label{schema}
 \end{center}
 \end{figure}
 
 \subsubsection{Content based}
 
-The content based heuristic try to find a movie that is close to the learned user preferences $\theta$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
+The content based model tries to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
-The movie genre and movie year can be considered as a onehot encoded vector $x$.
+The movie genre and movie year can be considered as a onehot encoded vector $\boldsymbol{x}$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
 
 \begin{center}
-	$ \ U_{c} = \theta^{T} * x$ 
+	$ \ U_{c} = \boldsymbol{\theta}^{T} \boldsymbol{x}$ 
 \end{center}
 
-Distinctive users have different preferences $\theta$. Also, we do the hypothesis of a stationary true value for $\theta$, meaning that while, we learn the user preference, its preferences stay the same.
+Distinctive users have different preferences $\boldsymbol{\theta}$. Also, we do the hypothesis of a stationary true value for $\boldsymbol{\theta}$, meaning that while, we learn the user preference, its preferences stay the same.
 
-The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously for movie an higher value of $s$ is needed compared to an $s$ that would be used for music. The utility for a user in term of novelty can be defined as follows.
+The novelty is defined using the forgetting curve proposed by \cite{ebbinghaus1913memory} and defined as $ e^{\frac{t}{s}} $ with $t$ being the current time and $s$ an hyper-parameter defining how fast we forget and want a repetition. Obviously if we want to recommend movies instead of music, an higher value of $s$ is needed. The utility for a user in term of novelty can be defined as follows.
 
 \begin{center}
 	$ \ U_{n} = 1 - e^{\frac{t}{s}} $ 
 \end{center}
 
-The combined utility or more explicitly the expected rating for a movie and a user is defined as follows.
+The combined utility (i.e. the expected rating for a movie and a user) is defined as follows.
 
 \begin{center}
-	$ \ U = \ U_{c} *  U_{n} = (\theta^{T} * x) * (1 - e^{\frac{t}{s}}) $ 
+	$ \ U = \ U_{c} \times  U_{n} = (\boldsymbol{\theta}^{T} \boldsymbol{x}) \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
-The last task of the recommender is then to propose the movie with the highest expected rating to the user and update the user preferences $\theta$ according to the difference in rating received and predicted.
+The task of the recommender is to propose a movie to the user depending on the expected ratings computed for each movie and to update the user preferences $\boldsymbol{\theta}$ according to the rating received from the user. We use an iterative mean.
+
+$$ \boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_{t} + r_{t} \times \boldsymbol{x}_{t} $$
+
+where $\boldsymbol{\theta}_{t} $ is the user preferences at epoch $t$, $ r_{t} $ is the rating received for the movie recommended at epoch $t$ and $\boldsymbol{x}_{t}$ is the movie features for the movie recommended at epoch $t$.
 
 \subsubsection{Collaborative filtering}
 
-The collaborative filtering heuristic try to find a movie that is a liked movie by a similar user. It takes into account others users rating and novelty of a movie.
+The collaborative filtering model tries to find a movie that a user with similar preferences gave a good rating to. It takes into account other users rating and the novelty of movies.
 
-The algorithm will start by finding a cluster of the user and $k$ others users by associating of the most similar user in clusters. The association is done by calculating the Pearson product-moment correlation coefficient on preferences $\theta$ of the targeted user and others users. Then cluster users rating are considerate to be the utility of the user for those movie. In others words, similar user's movies rating become targeted user utility for those movies.
+The algorithm will start by finding a subset of the user and the $k$ other users with the most similar preferences. The distance between users is defined as the Pearson product-moment correlation coefficient on preferences $\boldsymbol{\theta}$ of the targeted user and every other users. We obtain a list of all movies watched by those other users. We consider for each movie only the best rating. Those ratings become the expected ratings for each movie for the targeted user. To avoid any bias due to users over- or under-rating movies, other users ratings are weighted by the mean of all their ratings.
 
 \begin{center}
 	$ \ U_{f} = u $ 
 \end{center}
 
-Note that others users rating are weighted by the average means they give to movie to avoid biais.
-
 The novelty if defined similarly as above, so the expected rating is :
 
 \begin{center}
-	$ \ U = \ U_{f} *  U_{n} = u * (1 - e^{\frac{t}{s}}) $ 
+	$ \ U = \ U_{f} \times  U_{n} = u \times (1 - e^{\frac{t}{s}}) $ 
 \end{center}
 
 \subsection{Bandit strategies}
 
-Many strategy to find an approximate solution have been developed over the years. A review of them is explain by \cite{kuleshov2014algorithms}.
+Many strategies to find the optimal solution have been developed over the years. A review of them is explain by \cite{kuleshov2014algorithms}.
 
 \subsubsection{Random}
 
@@ -161,7 +167,7 @@ The random strategy is not a real strategy per se. It is a strategy where the pl
 
 \subsubsection{Greedy-epsilon}
 
-The $\epsilon-greedy$ algorithm is widely used because it is fairly simple. For each round of the simulation, the algorithm selects the arm (movie) with the highest expected value based on the context vector with a probability of $1-\epsilon$ and selects a random arm with a probability $\epsilon$.
+The $\epsilon-greedy$ algorithm is widely used because it is fairly simple. For each round of the simulation, the algorithm selects the arm (movie) with the highest rating with a probability of $1-\epsilon$ and selects a random arm with a probability $\epsilon$.
 
 \subsubsection{Greedy time dependent}
 
@@ -171,7 +177,7 @@ The greedy time dependent is a variation of the previously mentioned greedy wher
 	$\epsilon = \frac{1}{\sqrt{t+1}}$
 \end{center}
 
-However, the effectiveness of variating $\epsilon$ over time is disputed by \cite{vermorel2005multi} whose did not find any practical advantage to using these method. As a result, we will test both approaches.
+However, the effectiveness of variating $\epsilon$ over time is disputed by \cite{vermorel2005multi} who did not find any practical advantage to using these method. As a result, we will test both approaches.
 
 \subsubsection{Greedy UCB}
 
@@ -205,7 +211,7 @@ Experiments were conducted on personal computer and the programming language $py
 
 The simulation consisted on simulating the interaction of a user and a recommender. Results can be found in section \ref{results} \todo{explain the simulation better}
 
-\subsection{Metrics}
+\subsection{Metrics} \label{metrics}
 
 In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalised as follows.
 
@@ -217,13 +223,60 @@ The regret can be defined
 
 \subsubsection{Average rating}
 
-\subsubsection{Recommendation time}
+The average rating is the simplest metric consisting of only the observed rating. It is interesting because it is a good indicator of how the user liked the recommendation.
+
+\subsubsection{Computation time}
+
+The last metric is the time needed to compute a recommendation. Indeed, usually a recommendation should be computed in a reasonable time, the system can't afford to make the user wait for several minutes before giving him a recommendation. However, one could argues that the computation could be parallelized on multi-core or on a big data cluster and.  \todo{dernier phrase in discussion}
 
 
 % ------ results -------
 \section{Results} \label{results}
 
-\todo{simple result of adaptation of music paper to movie paper avec greedy vs random}
+This section will explore the different results obtained throughout all experiments made.
+
+\subsection{Adaptation of \cite{main} to movie recommendation}
+
+Here are the results of the adaptation of \cite{main} to movie recommendation using a greedy algorithm and the same content based model as described in that paper. Let's look at metrics defined in \ref{metrics}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/greedy0.png}
+\caption{Average cumulative regret for greedy algorithm on the content based approach}
+\label{greedy0}
+\end{center}
+\end{figure}
+
+This graph tells us that on the long term or mid term, the recommender will give us better result than a random selection of movie. Also it underlines the importance of balancing exploration and exploitation. Indeed, the result difference between different greedy approach is quite significant.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/greedy1.png}
+\caption{Average mean square error for each algorithm on the content based approach}
+\label{greedy1}
+\end{center}
+\end{figure}
+
+The graph above tends to show that it takes about 15 recommendations before starting to actually exploit the user preferences for two greedy except greedy-UCB which seems to learn more slowly. After 15 recommendations, those two greedy algorithm error are getting smaller meaning that they tends to predict the rating the user will give to the algorithm better.
+The explanation to why greedy will get a smaller error than random is because greedy will exploit the result and recommend movie with features similar to user preferences thus predicting the utility with more accuracy.
+The explanation to why random get more accurate in term or prediction of rating over time without doing exploitation is because at first the user feature are initialised to zero and then are updated to match what the user like.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/greedy2.png}
+\caption{Average rating given by the user as a feedback to a recommendation}
+\label{schema2}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.47\textwidth]{img/greedy3.png}
+\caption{Average time in second needed to produce a recommendation to the user}
+\label{greedy3}
+\end{center}
+\end{figure}
+
 
 \subsection{Bayesian methods}
 
@@ -234,7 +287,7 @@ The regret can be defined
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=3.4in]{img/collabo1.png}
+\includegraphics[width=0.47\textwidth]{img/collabo1.png}
 \caption{Average regret}
 \label{schema}
 \end{center}
@@ -257,6 +310,7 @@ The regret can be defined
 
 \todo{futur work, what could be done if you give me 10 IA guys for a week}
 % combined content based and collaborative filtering
+% comparer avec une approche supervisé
 
 \section{Conclusion}
 
