@@ -377,12 +377,14 @@ However, one could argues that the computation could be parallelized on multi-co
 
 \section{Conclusion}
 
-Thoroughly we built a functional online movie recommender system starting with data mining, features engineering, dimension reduction and several models of reinforcement learning. We argue that this system would certainly work on the entire database of IMDb if run on a scalable system.
-As in \cite{main}, we use the advantages of reinforcement learning compared to supervised learning : the exploitation-exploration tradeoff depends on our hyperparameters and the cold-start problem is easily solved by the former.
-Adapt some algos from \cite{main} to movies as they suggested. It works !
-Use collaborative filtering. It works !
-Use novelty : it works with a great $s$
-Showed that bayes is not viable in production because really slow
+We built a thorough functional movie recommender system including data mining, features engineering, dimension reduction and several models and content based as well as a collaborative filtering approaches to reinforcement learning. 
+Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration tradeoff to solve the usual recommender cold-start problem. We also successfully integrate novelty in our model to handle and avoid movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we define future possible research.
+
+%We argue that this system would could easlily work on the entire database of IMDb if run on a scalable system.
+%Adapt some algos from \cite{main} to movies as they suggested. It works !
+%Use collaborative filtering. It works !
+%Use novelty : it works with a great $s$
+%Showed that bayes is not viable in production because really slow
 
 \footnotesize
 \bibliographystyle{apalike}
