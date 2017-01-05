@@ -378,14 +378,14 @@ The comparison of the different viable algorithms have show the following :
 	\item a greedy that variate the exploration and use collaborative filtering give the best results of all?
 \end{itemize}
 
+The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
+
 We ask the following question : does collaborative filtering models work better than content based models because we recommend movies or are the results generalizable to any kind of recommendation ? \cite{main} uses content-based models. In a future work, we could try the collaborative filtering models on music.
 
 %%%%%%%% ATTENTION ICI Y A DES TRUCS %%%%%%%%
 %\todo{traduire en anglais}
 %On se rend compte que le greedy est meilleur que le random etc etc et ca on s'en fout on s'en doutait. Mais ce qui est fort c'est que le CF est meilleur que le CB. Pourtant dans le papier original il a implémenté que le CB. Donc pq ? est-ce qu'il s'en est juste pas douté ? ou pcq c'etait de la musique et pas des films. Si je ne m'abuse il dit qu'il choisit du CB pcq y a plus d'exploration et moins d'exploitation que du CF.  Simplement pcq le CF propose plus facilement des films tres connus que peu connus, de part sa nature.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The reason why the greedy-UCB algorithm does not seem to work well is that the UCB is very difficult to compute. Bayes-UCB should solve this problem by representing the rating as a random variable.
 
 
 %\todo{maintenant qu'on a fait la recherche, si tu devais créer un vrai système tu utilises quoi comme technique, traduire en anglais}
