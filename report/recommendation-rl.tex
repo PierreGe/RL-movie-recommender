@@ -172,13 +172,14 @@ The greedy time dependent is a variation of the previously mentioned greedy wher
 
 However, the effectiveness of variating $\epsilon$ over time is disputed by \cite{vermorel2005multi} whose did not find any practical advantage to using these method. As a result, we will test both approaches.
 
-\subsubsection{GreedyUCB}
+\subsubsection{Greedy UCB}
 
 \todo{GreedyUCB}
 
-\subsubsection{BayesUCB}
+\subsubsection{Exact Bayesian methods}
 
-\todo{BayesUCB}
+\todo{Bayesian methods}
+% """Priors for the Bayesian models were set as uninformative ones or chosen based on preliminary simulation and user studies""" < ce qui notre tache très difficile
 
 \subsubsection{Bayes inference}
 
@@ -186,17 +187,52 @@ However, the effectiveness of variating $\epsilon$ over time is disputed by \cit
 
 \subsection{Simulation}
 
-\todo{explain how simulation is done}
+We conducted an empirical efficiency study of the algorithms mentioned above as well as the content based and collaborative filtering modelling. 
 
-\section{Results}
+Experiments were conducted on personal computer and the programming language $python$ was used to implement models and algorithms.
+
+The simulation consisted on simulating the interaction of a user and a recommender. Results can be found in section \ref{results} \todo{explain the simulation better}
+
+\subsection{Metrics}
+
+In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalised as follows.
+
+\subsubsection{Regret}
+
+The regret can be defined
+
+\subsubsection{Accuracy}
+
+\subsubsection{Average rating}
+
+\subsubsection{Recommendation time}
+
+
+% ------ results -------
+\section{Results} \label{results}
 
 \todo{simple result of adaptation of music paper to movie paper avec greedy vs random}
 
+\subsection{Bayesian methods}
+
 \todo{more diverse choice in bandit strategies including}
+
+
+\subsection{Collaborative filtering and content based comparison}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=3.4in]{img/collabo1.png}
+\caption{Average regret}
+\label{schema}
+\end{center}
+\end{figure}
 
 \todo{result of collaborative filtering}
 
+\subsection{Overall performance}
 
+% ------ discussion -------
 \section{Discussion}
 
 \todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
@@ -205,7 +241,10 @@ However, the effectiveness of variating $\epsilon$ over time is disputed by \cit
 
 \todo{content based vs collaborative, is collaborative viable}
 
+\todo{maintenant qu'on a fait la recherche, si tu devais créer un vrai système tu utilises quoi comme technique}
+
 \todo{futur work, what could be done if you give me 10 IA guys for a week}
+% combined content based and collaborative filtering
 
 \section{Conclusion}
 
