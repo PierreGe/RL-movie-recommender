@@ -243,8 +243,7 @@ The average rating is the simplest metric consisting of only the observed rating
 
 \subsubsection{Computation time}
 
-The last metric is the time needed to compute a recommendation. Indeed, usually a recommendation should be computed in a reasonable time, the system can't afford to make the user wait for several minutes before giving him a recommendation. However, one could argues that the computation could be parallelized on multi-core or on a big data cluster.  \todo{dernier phrase in discussion}
-
+The last metric is the time needed to compute a recommendation. Indeed, usually a recommendation should be computed in a reasonable time, the system can't afford to make the user wait for several minutes before giving him a recommendation.
 
 % ------ results -------
 \section{Results} \label{results}
@@ -314,6 +313,7 @@ Due to the Markov Chain Monte Carlo approximation method and the high number of 
 
 On the graph above, we can see that the exact bayesian take about 4 minutes to produce a single recommendation. Therefore this model does not seems to be suitable for a movie recommender system if not adapted to widely parallel way to compute each utility for a recommendation.
 
+\subsubsection{Bayesian inference}
 
 \todo{Bayesian inference}
 
@@ -352,14 +352,17 @@ The graph above seems to show that the collaborative filtering model is slightly
 
 Maybe the more important graph for the comparison is the one above. It tends to show that there is a significant different on the feedback given by the user depending on the model used for the greedy algorithm. User tends to give a higher feedback to movie suggested by the collaborative filtering approach.
 
-\todo{result of collaborative filtering}
-
 \subsection{Overall performance}
+
+\todo{overall performace}
 
 % ------ discussion -------
 \section{Discussion}
 
 \todo{would the result be correct recommendation, is it a viable way to do recommendation ? (expected result vs reality, time for a recommendation, accuracy, ....)}
+
+However, one could argues that the computation could be parallelized on multi-core or on a big data cluster.  \todo{dernier phrase in discussion}
+
 
 \todo{which strategy to use and which not to use ( including why bayes-ucb is not viable (way too much time an requires a user study to bootstrap)}
 
