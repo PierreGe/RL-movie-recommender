@@ -23,15 +23,15 @@ antoine.carpentier@vub.ac.be, pierre.gerard@ulb.ac.be, julian.schembri@ulb.ac.be
 \maketitle
 
 \begin{abstract}
-  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommending new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration tradeoff and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
+  The purpose of our research is to study reinforcement learning approaches to building a movie recommender system. We formulate the problem of interactive recommendation as a contextual multi-armed bandit, learning user preferences recommending new movies and receiving their ratings. We show that using reinforcement learning solves the problem of exploitation-exploration trade-off and the cold-start problem. We integrate the novelty of movies to the model. We explore a content based approach as well as a collaborative filtering approach and both yield viable recommendation results.
 \end{abstract}
 
 \section{Introduction}
 
 
-Individuals sometimes have to settle on decisions without sufficient personal experience of the several choices. On a regular daily basis, their decisions depend on recommendations, advices and opinions from other individuals either by listening in conversations or by direct suggestion of movies, tv shows, holiday destinations, etc. Recommender systems help and enlarge this normal social process.
+Individuals sometimes have to settle on decisions without sufficient personal experience of the several choices. On a regular daily basis, their decisions depend on recommendations, advices and opinions from other individuals either by listening in conversations or by direct suggestion of movies, TV shows, holiday destinations, etc. Recommender systems help and enlarge this normal social process.
 
-In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimise the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
+In a recommender system, individuals usually give behaviour information as data sources, which the system then use to learn users preferences in order to provide recommendation. The recommender's value lies in its capacity to make great matches between the recommenders and those looking for suggestions. Such systems are the strength of content providers such as Netflix \cite{netflix-article-recommender} and YouTube \footnote{http://www.youtube.com}, allowing them to make their content more attractive in order to increase views and to optimize the monetisation of their videos. It allows to infer the customer's center of interest and, if customers share some general behaviour, to detect improvements in content that can be made to better meet the expectations of the public. 
 
 
 This work follows the steps of \cite{main} who have implemented a music recommendation system using reinforcement learning. In \cite{main}, they explain what could be done to adapt their work to movies recommendation and suggest to try a collaborative filtering approach. In our work, we first adapt their strategies to movies recommendation and then we try on some approaches they suggest.
@@ -45,7 +45,7 @@ The problem of movie recommendation is modeled as a contextual multi-armed bandi
 	\item Using a good policy balances exploration and exploitation thus mitigating the problems of cold-start and novelty.
 \end{itemize}
 
-The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and her goal is to choose wisely which arm to play in order to maximise the total payoff.
+The multi-armed bandit is a intensively studied reinforcement learning dilemma. It consists of a bandit (usually a casino slot machine) with $K$ arms, each giving a payoff $r$ sampled from an unknown probability distribution $p_{i}$. The player has a defined $n$ number of pulls and her goal is to choose wisely which arm to play in order to maximize the total payoff.
 
 The contextual multi-armed bandit is a generalization of the multi-armed bandit where the reward obtained from each arm depends also on a \textit{context}. The context contains information about the arm and the player.
 
@@ -56,15 +56,15 @@ In the following sections, we will first introduce the methods used. Then we wil
 
 \subsection{Data mining}
 
-The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is twofolds. The first part is a movie catalog containing relevant information about each movies such as the genre, keywords describing the content, the year, the mean rating and number of votes. That part is publicly available from IMDb FTP in a homemade format. The second part of data is RSS flux of movies watched and rated by IMDb users containing the title of the movie along with the rating and the time it was watched.
+The data used is originated from IMDb \footnote{http://www.imdb.com/}. It is two-folds. The first part is a movie catalog containing relevant information about each movies such as the genre, keywords describing the content, the year, the mean rating and number of votes. That part is publicly available from IMDb FTP in a homemade format. The second part of data is RSS flux of movies watched and rated by IMDb users containing the title of the movie along with the rating and the time it was watched.
 
 \subsection{Features extraction and selection}
 
 The first challenge was to extract the features from the IMDb homemade format and convert it into a clearer \textit{csv} format.
 
-In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelisation problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
+In order to reduce the complexity of the algorithm, to focus on the learning matter and to avoid transforming the problem into a big data and parallelization problem, a subset of movies and users was picked, counting up to about 430.000 user-movie pair. We picked the 1000 movies with the most votes and all users who have at least 50 ratings for those movies. This create a bias in the data, that we will need to evaluate in a future work based on full real-life data.
 
-To keep the features vector simple, we selected only the genre and year for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a onehot encoding has been applied resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
+To keep the features vector simple, we selected only the genre and year for each movie. Those two features are categorical variable and in order to learn a single weight per feature (i.e. drama, crime, ..), a one-hot encoding has been applied resulting in a blow up of the feature space to $n$ features, $n$ being the number of category.
 
 \begin{table}[h]
 \center{
@@ -86,7 +86,7 @@ Movie 3  & 0 &   0 & 0 & ...\\ \hline
 The feature space resulting from the feature extraction process is quite large, making the recommendation computational intensive.
 In order to deal with that problem, the feature space size has been reduced using Principal Components Analysis (PCA) [\cite{principalcompanalysis}].
 
-The principal components analysis is a machine learning procedure that apply an orthogonal transformation to the dataset in order to obtain a new set of values that minimises the covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components thus removing first the components with lesser variance.
+The principal components analysis is a machine learning procedure that apply an orthogonal transformation to the dataset in order to obtain a new set of values that minimizes the covariance. Those new variables are called principal components. There are ordered in term of variance, the first principal component having the highest variance and so on. When the procedure is applied a reduction to n-dimension consists of keeping the n-first principal components thus removing first the components with lesser variance.
 
 For our dataset we kept the 20-first principal components out of about 50, keeping about 83\% of the variance of the original dataset.
 
@@ -116,7 +116,7 @@ This raises one concern : as the number of movies is gigantic, some movies might
 
 The content based model tries to find a movie that is close to the learned user preferences $\boldsymbol{\theta}$. It takes into account the movie genre, movie year and novelty. Novelty can be defined as if the movie as been recently watched or not.
 
-The movie genre and movie year can be considered as a onehot encoded vector $\boldsymbol{x}$.
+The movie genre and movie year can be considered as a one-hot encoded vector $\boldsymbol{x}$.
 Without considering other factor, the utility of a user for a movie can be represented as the following.
 
 \begin{center}
@@ -175,7 +175,7 @@ The $\epsilon-greedy$ algorithm is widely used because it is fairly simple. For 
 
 \subsubsection{Greedy time dependent}
 
-The greedy time dependent is a variation of the previously mentioned greedy where $\epsilon$ variated over time in order to maximise the exploration at first and reduce it in order to increase exploitation over time.
+The greedy time dependent is a variation of the previously mentioned greedy where $\epsilon$ variate over time in order to maximize the exploration at first and reduce it in order to increase exploitation over time.
 
 \begin{center}
 	$\epsilon = \frac{1}{\sqrt{t+1}}$
@@ -205,11 +205,11 @@ $\lambda^l_k = p(U_k | \mathcal{D}_l) = \int p(U_k|\Omega)p(\Omega| \mathcal{D}_
 Where $p(U_k|\mathcal{D}_l)$ is the posterior distribution of $U_k$ and $ p(\Omega| \mathcal{D}_l) $ is the posterior distribution of $ \Omega $. We recommend song $k^{\star} = arg \max\limits_{k=1...|S|} Q(\alpha, \lambda^l_k)$ where $Q$ is the quantile function that satisfies $ \mathbb{P} [ U_k \le Q(\alpha, \lambda^l_k) ]=\alpha$ and $S$ is all the movies. 
 Hence, we balance exploration and exploitation.
 
-The Bayesian model is developped with a composition of random variables as shown in \cite{main}. Because there is no closed-form solution to $ \lambda^l_k$, Markov Chain Monte Carlo (MCMC) can be used as an approximation procedure.
+The Bayesian model is developed with a composition of random variables as shown in \cite{main}. Because there is no closed-form solution to $ \lambda^l_k$, Markov Chain Monte Carlo (MCMC) can be used as an approximation procedure.
 
 \subsubsection{Bayes inference}
 
-To get around the bad performance of the exact Bayesian model, we will use an approximated Bayesian model. The complexity of computing the the exact Bayesian model is due to the irregular form of the function $U_n(t)$. To do so, we discretize the time t into a $K$ intervals: $ [0, \xi), [\xi_1,\xi_2),...[\xi_{K-1}, +\infty)$ and then map $t$ into a vector $t = [(t-\xi_1)_{+},...(t-\xi_{K-1}),t,1]$. We approximate $U_n(t) \approx \boldsymbol{\beta}^{T}t $ where $ \boldsymbol{\beta}$ is a vector of parameters that will be learnt. We can rewrite $ U = U_c U_n \approx \boldsymbol{\theta}^{T} x \boldsymbol{\beta}^{T} t $. From the history of an user, we try to learn the expected values of $\beta$, $\theta$ and $\tau = 1/\sigma^2$ that represent user's data. Then with these datas, we can generate samples and approximate with MCMC the expected rating of each movie candidate for recommendation.
+To get around the bad performance of the exact Bayesian model, we will use an approximated Bayesian model. The complexity of computing the the exact Bayesian model is due to the irregular form of the function $U_n(t)$. To do so, we discretize the time t into a $K$ intervals: $ [0, \xi), [\xi_1,\xi_2),...[\xi_{K-1}, +\infty)$ and then map $t$ into a vector $t = [(t-\xi_1)_{+},...(t-\xi_{K-1}),t,1]$. We approximate $U_n(t) \approx \boldsymbol{\beta}^{T}t $ where $ \boldsymbol{\beta}$ is a vector of parameters that will be learned. We can rewrite $ U = U_c U_n \approx \boldsymbol{\theta}^{T} x \boldsymbol{\beta}^{T} t $. From the history of an user, we try to learn the expected values of $\beta$, $\theta$ and $\tau = 1/\sigma^2$ that represent user's data. Then with these data, we can generate samples and approximate with MCMC the expected rating of each movie candidate for recommendation.
 
 \subsection{Simulation}
 
@@ -224,7 +224,7 @@ Results can be found in section \ref{results} .
 
 \subsection{Metrics} \label{metrics}
 
-In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalised as follows.
+In order to evaluate our algorithms and models in term of movie recommendation performance, an assortment of metrics retained. They could be formalized as follows.
 
 \subsubsection{Cumulative regret}
 
@@ -271,7 +271,7 @@ This graph tells us that on the long term or mid term, the recommender will give
 
 The graph above tends to show that it takes about 15 recommendations before starting to actually exploit the user preferences for two greedy except greedy-UCB which seems to learn more slowly. After 15 recommendations, those two greedy algorithm error are getting smaller meaning that they tends to predict the rating the user will give to the algorithm better.
 The explanation to why greedy will get a smaller error than random is because greedy will exploit the result and recommend movie with features similar to user preferences thus predicting the utility with more accuracy.
-The explanation to why random get more accurate in term or prediction of rating over time without doing exploitation is because at first the user feature are initialised to zero and then are updated to match what the user like.
+The explanation to why random get more accurate in term or prediction of rating over time without doing exploitation is because at first the user feature are initialized to zero and then are updated to match what the user like.
 
 \begin{figure}[H]
 \begin{center}
@@ -296,9 +296,9 @@ On the graph above, we can see that the slowest version of greedy takes less tha
 
 \subsection{Bayesian methods}
 
-\subsubsection{Exact bayesian}
+\subsubsection{Exact Bayesian}
 
-Due to the Markov Chain Monte Carlo approximation method and the high number of random sampling it need to compute, the exact bayesian method take a long time as show below.
+Due to the Markov Chain Monte Carlo approximation method and the high number of random sampling it need to compute, the exact Bayesian method take a long time as show below.
 
 \begin{figure}[H]
 \begin{center}
@@ -308,11 +308,11 @@ Due to the Markov Chain Monte Carlo approximation method and the high number of 
 \end{center}
 \end{figure}
 
-On the graph above, we can see that the exact bayesian take about 4 minutes to produce a single recommendation. Therefore this model does not seems to be suitable for a movie recommender system if not adapted to widely parallel way to compute each utility for a recommendation.
+On the graph above, we can see that the exact Bayesian take about 4 minutes to produce a single recommendation. Therefore this model does not seems to be suitable for a movie recommender system if not adapted to widely parallel way to compute each utility for a recommendation.
 
 \subsubsection{Bayesian inference}
 
-The Bayesian inference method shown in \citep{main} involve complexe computations. Some parts of the algorithm are partially incomplete and left for interpretation. Furthermore the hyperparameters presented in the paper are used for music recommendation and hence might not be suitable for movie recommendation. Attemps of implementation of this method have not provided expected results shown in the paper. The debbuging of code containing partial interpretation is a highly complicated task, on which we worked extensively without success. 
+The Bayesian inference method shown in \citep{main} involve complex computations. Some parts of the algorithm are partially incomplete and left for interpretation. Furthermore the hyperparameters presented in the paper are used for music recommendation and hence might not be suitable for movie recommendation. Attempts of implementation of this method have not provided expected results shown in the paper. The debugging of code containing partial interpretation is a highly complicated task, on which we worked extensively without success. 
 
 \subsection{Collaborative filtering and content based comparison}
 
@@ -331,7 +331,7 @@ The graph above tends to show that the collaborative filtering tends to return b
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.47\textwidth]{img/collabo2.png}
-\caption{Comparison of the mean square error for thecontent based model and collaborative filtering model}
+\caption{Comparison of the mean square error for the content based model and collaborative filtering model}
 \label{collabo2}
 \end{center}
 \end{figure}
@@ -367,9 +367,9 @@ The best techniques seems to take a greedy that explore a lot at the beginning a
 % ------ discussion -------
 \section{Discussion}
 
-Exploring user preferences is a central piece of a personalised recommender system and can be used as a context in a multi-armed bandit modelisation of the recommender as mentioned by \cite{main}.
+Exploring user preferences is a central piece of a personalized recommender system and can be used as a context in a multi-armed bandit modelization of the recommender as mentioned by \cite{main}.
 
-As shown in the result the bayesian way is not viable as it is. Indeed, the exact bayesian takes way too much time to compute a single recommendation and attempts of implementation of the bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster
+As shown in the result the Bayesian way is not viable as it is. Indeed, the exact Bayesian takes way too much time to compute a single recommendation and attempts of implementation of the Bayesian inference have not yield the expected results. However, for the exact model, one could argues that the computation could be parallelised on multi-core or on a big data cluster
 
 The comparison of the different viable algorithms have shown the following : 
 \begin{itemize}
@@ -388,7 +388,7 @@ For future direction, we suggest to research an hybrid approaches between collab
 \section{Conclusion}
 
 We built a thorough functional movie recommender system including data mining, features engineering, dimension reduction and several models and content based as well as a collaborative filtering approaches to reinforcement learning. 
-Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration tradeoff to solve the usual recommender cold-start problem. We also successfully integrated novelty in our model to handle and avoid too much movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we defined future possible research.
+Following the step of \cite{main} who worked on music recommendation, we used the advantages of reinforcement learning to build such a system taking advantages of the exploitation-exploration trade-off to solve the usual recommender cold-start problem. We also successfully integrated novelty in our model to handle and avoid too much movie repetition. Moreover, we followed \cite{main} advice to explore collaborative filtering and demonstrated that it outcomes better results than the content based approaches. Finally we defined future possible research.
 
 
 \footnotesize
